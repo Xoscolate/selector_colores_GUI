@@ -5,6 +5,7 @@ import 'models/selector_colores_estado.dart';
 import 'viewmodels/selector_colores_viewmodel.dart';
 import 'widgets/selector_colores_widget.dart';
 import 'views/pantalla.dart';
+import 'views/screen_instalacion.dart';
 
 /// Función principal que arranca la aplicación Flutter.
 void main() {
@@ -16,7 +17,7 @@ void main() {
       },
       // El MaterialApp debe ir aquí, envolviendo a tu widget raíz
       child: const MaterialApp(
-        home: MiAppSelectorColor(),
+        home: SetupScreen(),
       ),
     ),
   );
@@ -36,30 +37,29 @@ class MiAppSelectorColor extends StatelessWidget {
       ),
       // 2. ANIMATED CONTAINER: Envolvemos el body para animar el fondo [5]
       body: AnimatedContainer(
-        duration: const Duration(milliseconds: 300), // Transición suave
-        color: vm.state.currentColor, // ¡Aquí aplicamos el color al fondo!
+        duration: const Duration(milliseconds: 300),
+        color: vm.state.currentColor,
 
         child: Center(
           child: Container(
-            // Le ponemos un fondito semi-transparente blanco a la columna
-            // para que el texto y los bordes se sigan leyendo bien aunque
-            // elijas un color muy oscuro (como el negro).
+            // 1. CONSTRAINTS: Tamaño estricto de la caja
+            width: 400,
+            height: 500, // Ajustado a 500 ahora que no hay texto
             padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.8),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // Para que la caja no ocupe toda la pantalla
-              children: [
-                // Texto de Feedback
-                Text(
-                  "Color seleccionado: ${vm.state.currentColor.toString()}",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 30),
 
-                // TU CUSTOM WIDGET
+            // 2. BOX DECORATION: Fondo de la caja interior
+            decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.85),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black26, blurRadius: 10, offset: Offset(0, 5))
+                ]
+            ),
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // TU CUSTOM WIDGET (Sin el texto arriba)
                 ColorSelectorWidget(
                   state: vm.state,
                   size: 300,
@@ -77,15 +77,15 @@ class MiAppSelectorColor extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // Botones de prueba
+                // Botones de control
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () => vm.startFromColor(Colors.green),
-                      child: const Text("Iniciar en Verde"),
+                      child: const Text("Iniciar Verde"),
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 15),
                     OutlinedButton(
                       onPressed: () => vm.resetSelector(),
                       child: const Text("Resetear"),
