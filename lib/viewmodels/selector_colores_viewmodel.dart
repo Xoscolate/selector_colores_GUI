@@ -29,6 +29,8 @@ class ColorSelectorViewModel extends ChangeNotifier {
     );
     // 2. Avisamos a Flutter para que redibuje la pantalla
     notifyListeners();
+    guardarConfiguracion();
+
   }
 
 
@@ -52,6 +54,8 @@ class ColorSelectorViewModel extends ChangeNotifier {
       posY: nuevaY,
     );
     notifyListeners(); // Avisamos a la pantalla para que redibuje [4]
+    guardarConfiguracion();
+
   }
 
   // Callback: b) onReset()
@@ -63,6 +67,8 @@ class ColorSelectorViewModel extends ChangeNotifier {
       posY: 0.0,
     );
     notifyListeners();
+    guardarConfiguracion();
+
   }
 
   // --- VARIABLES DE SISTEMA ---
@@ -88,13 +94,13 @@ class ColorSelectorViewModel extends ChangeNotifier {
     return false; // El usuario canceló la ventana
   }
 
-  // 2. PERSISTENCIA (ESCRITURA): Guardar el estado en un txt [1]
   void guardarConfiguracion() {
     if (_rutaCarpeta == null) return;
 
     final fitxer = File('$_rutaCarpeta/config.txt');
-    // Guardamos el valor numérico del color actual (un valor por línea)
-    fitxer.writeAsStringSync('${_state.currentColor.value}\n');
+    // Guardamos 3 valores, un valor por línea tal como exigen los apuntes:
+    // 1: Color, 2: Posición X, 3: Posición Y
+    fitxer.writeAsStringSync('${_state.currentColor.value}\n${_state.posX}\n${_state.posY}\n');
   }
 
   // 3. PERSISTENCIA (LECTURA): Restaurar el estado al abrir
@@ -103,14 +109,21 @@ class ColorSelectorViewModel extends ChangeNotifier {
 
     final fitxer = File('$_rutaCarpeta/config.txt');
     if (fitxer.existsSync()) {
-      // Leemos el archivo línea por línea [1]
-      List<String> linies = fitxer.readAsLinesSync();
-      if (linies.isNotEmpty) {
-        // ¡EL CAMBIO ESTÁ AQUÍ! Seleccionamos la primera línea (linies.first o linies)
-        int colorValue = int.parse(linies.first);
+      // Leemos el archivo línea por línea
+      List<String> linies = fitxer.readAsLinesSync(); [1];
 
-        // Restauramos el estado con el color guardado
-        _state = _state.copyWith(currentColor: Color(colorValue));
+      // Comprobamos que existan al menos las 3 líneas que guardamos
+      if (linies.length >= 3) {
+        int colorValue = int.parse(linies[0]); // <-- saca la Línea 1 (Color)
+        double x = double.parse(linies[1]);    // <-- saca la Línea 2 (Posición X)
+        double y = double.parse(linies[2]);    // <-- saca la Línea 3 (Posición Y)
+
+        // Restauramos TODO el estado: color y posición de la bolita
+        _state = _state.copyWith(
+            currentColor: Color(colorValue),
+            posX: x,
+            posY: y
+        );
         notifyListeners();
       }
     }
