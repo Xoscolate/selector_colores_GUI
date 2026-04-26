@@ -39,11 +39,11 @@ class MainScreen extends StatelessWidget {
               borderColor: Colors.blueGrey,
 
               // 3. ENLAZAMOS LOS CALLBACKS AL VIEWMODEL
-              // a) onColorSelect(Color color) exigido por el enunciado
-              onColorSelect: (Color nuevoColor) {
-                // Aquí llamamos al ViewModel. (Le pasamos unas coordenadas de
-                // ejemplo temporalmente hasta que programemos la captura real).
-                vm.selectColor(nuevoColor, 150.0, 150.0);
+              // a) onColorSelect exigido por el enunciado (adaptado con X e Y)
+              onColorSelect: (Color nuevoColor, double x, double y) {
+                // Ahora le pasamos las coordenadas reales (x, y) que nos
+                // envía el Custom Widget al hacer clic o arrastrar.
+                vm.selectColor(nuevoColor, x, y);
               },
 
               // b) onReset() exigido por el enunciado
