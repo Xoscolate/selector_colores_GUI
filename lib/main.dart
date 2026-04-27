@@ -6,6 +6,7 @@ import 'viewmodels/selector_colores_viewmodel.dart';
 import 'widgets/selector_colores_widget.dart';
 import 'views/pantalla.dart';
 import 'views/screen_instalacion.dart';
+import 'widgets/slider_widget.dart';
 
 /// Función principal que arranca la aplicación Flutter.
 void main() {
@@ -91,6 +92,18 @@ class MiAppSelectorColor extends StatelessWidget {
                       child: const Text("Resetear"),
                     ),
                   ],
+                ),
+                const SizedBox(height: 20), // Separador
+                // BOTÓN PARA IR A LAS BARRAS
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.linear_scale),
+                  label: const Text("Cambiar a vista de Barras HSL"),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black87, foregroundColor: Colors.white),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => const SliderWidget()),
+                    );
+                  },
                 )
               ],
             ),

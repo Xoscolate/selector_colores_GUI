@@ -128,4 +128,14 @@ class ColorSelectorViewModel extends ChangeNotifier {
       }
     }
   }
+
+  void cambiarColorDesdeBarras(double h, double s, double l, double a) {
+    // Convertimos los valores HSL a un Color normal de Flutter
+    Color nuevoColor = HSLColor.fromAHSL(a, h, s, l).toColor();
+
+    // Actualizamos el estado (el fondo reaccionará automáticamente)
+    _state = _state.copyWith(currentColor: nuevoColor);
+    notifyListeners();
+    guardarConfiguracion(); // Reciclamos tu guardado dinámico
+  }
 }
