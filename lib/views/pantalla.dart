@@ -37,12 +37,6 @@ class MainScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min, // Se ajusta al contenido
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Color seleccionado: ${vm.state.currentColor.toString()}",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 30),
-
                 // INSTANCIAMOS TU CUSTOM WIDGET (El Cuadrado)
                 ColorSelectorWidget(
                   state: vm.state,
