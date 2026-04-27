@@ -110,7 +110,7 @@ class ColorSelectorViewModel extends ChangeNotifier {
     final fitxer = File('$_rutaCarpeta/config.txt');
     if (fitxer.existsSync()) {
       // Leemos el archivo línea por línea
-      List<String> linies = fitxer.readAsLinesSync(); [1];
+      List<String> linies = fitxer.readAsLinesSync();
 
       // Comprobamos que existan al menos las 3 líneas que guardamos
       if (linies.length >= 3) {

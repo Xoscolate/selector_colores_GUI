@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:selector_colores_oscarnunezpino_dam2/views/pantalla.dart';
 import '../viewmodels/selector_colores_viewmodel.dart';
 import '../widgets/slider_widget.dart';
-import 'package:selector_colores_oscarnunezpino_dam2/main.dart';
-
+import 'pantalla.dart';
 class HslSlidersScreen extends StatelessWidget {
   const HslSlidersScreen({super.key});
 

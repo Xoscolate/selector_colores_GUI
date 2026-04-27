@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/selector_colores_viewmodel.dart'; // Ajusta la ruta si es necesario
 import 'pantalla.dart'; // Importamos tu pantalla principal
-import 'package:selector_colores_oscarnunezpino_dam2/main.dart';
+import 'pantalla.dart';
+
 class SetupScreen extends StatelessWidget {
   const SetupScreen({super.key});
 
@@ -49,8 +50,7 @@ class SetupScreen extends StatelessWidget {
                   // 2. Si el usuario eligió la carpeta correctamente, saltamos a la App
                   if (exito && context.mounted) {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const MiAppSelectorColor()),
-                    );
+                      MaterialPageRoute(builder: (_) => const MainScreen()),                    );
                   }
                 },
               ),
